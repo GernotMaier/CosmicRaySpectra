@@ -624,7 +624,15 @@ void plot_electron_spectrum( double iEScale = 1., bool bPlotTotal = false, bool 
 	// VERITAS results (2018PhRvD..98f2004A)
 	TF1* fVTS_PowerLawBroken = new TF1( "VTS_PowerLawBroken", powerlaw_broken_simple, 316. / 1.e3, 5.623, 4 );
 	fVTS_PowerLawBroken->SetLineColor( 800 );
-	fVTS_PowerLawBroken->SetParameter( 0, 0.000353289 );
+// fVTS_PowerLawBroken->SetParameter( 0, 0.000353289 );
+    // fit result in 1/TeV/m^2/s
+    double k = 2.73e-11;
+    // normalisation factor for FOV
+    k *= 12439.;
+    // cm2 --> m2
+    k *= 1.e3;
+    cout << "VERITAS normalisation factor: " << k << " [1/TeV/m^2/s/sr]" << endl;
+	fVTS_PowerLawBroken->SetParameter( 0, k );
 	fVTS_PowerLawBroken->SetParameter( 1, 0.710 );
 	fVTS_PowerLawBroken->SetParameter( 2, 3.2 );
 	fVTS_PowerLawBroken->SetParameter( 3, 4.1 );
